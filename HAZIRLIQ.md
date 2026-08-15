@@ -14,7 +14,31 @@ Son yenilənmə: 14 avqust 2026
 | Cəm formaları — 11 ədəd | ✅ `BasePlurals` + `FlightsPlurals` |
 | Tətbiq ikonu 1024×1024 | ✅ `Images.xcassets/ic_application.appiconset` |
 | bilet.az loqosu (1x/2x/3x) | ✅ `Images.xcassets/bilet_logo.imageset` |
-| Başlıq + sürüşən xidmət menyusu | ✅ kod yazılıb, Mac-da yoxlanmalıdır |
+| Başlıq + sürüşən xidmət menyusu | ✅ kod yazılıb |
+| **Kompilyasiya yoxlaması** | ✅ **GitHub Actions-da uğurla yığılır** |
+
+Repozitoriya: https://github.com/valizadak/bilet-app-ios (gizli)
+Hər `git push`-dan sonra yığma avtomatik işə düşür, ~16 dəqiqə çəkir.
+
+---
+
+## Yığma zamanı rast gəlinən tələlər
+
+Sənədlərdə yazılmayıb, təkrar qarşıya çıxsa vaxt itirməmək üçün:
+
+1. **`fileContainsInvalidSyntax`** — `configuration.json`-dakı mətnlərdə **həqiqi sətir keçidi** olmamalıdır.
+   Konfiqurator onu `.strings` faylına köçürəndə faylı sındırır. Həlli: `\\n` yazmaq
+   (JSON-da qaçış işarəsi ilə), onda fayla `\n` düşür və iOS onu abzas kimi oxuyur.
+   Azərbaycan dili ilə əlaqəsi yoxdur — bu, diaqnostika ilə ayrıca təsdiqləndi.
+
+2. **Xcode versiyası** — XcodeGen layihəni 77-ci formatda yaradır, Xcode 15 onu aça bilmir
+   ("There are no schemes in workspace"). `macos-15` maşını və ən yeni Xcode seçilməlidir.
+
+3. **SwiftLint sərt rejimdədir** — üslub pozuntusu yığmanı dayandırır:
+   - `switch` gövdəsi `case` ilə eyni sətirdə ola bilməz
+   - `@objc` funksiyadan ayrı, öz sətrində yazılmalıdır
+   - `UIImage(named:)` qadağandır; şəkil literalı da qadağandır (iki qayda ziddir) —
+     yeganə yol layihənin öz `R.image.<ad>()` mexanizmidir
 
 Tərcümələrin 203-ü Android layihəsindən avtomatik köçürüldü (ingilis mətninə görə uyğunlaşdırma),
 46-sı əl ilə yazıldı. Beləliklə iOS və Android eyni terminologiyanı işlədir.
