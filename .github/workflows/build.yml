@@ -60,10 +60,23 @@ jobs:
             echo
           }
 
-          try "A: upstream config + az-siz strings" /tmp/upstream-configuration.json /tmp/wl-no-az
-          try "B: bizim config + az-siz strings"    configuration.json               /tmp/wl-no-az
-          try "C: bizim config + bizim strings"     configuration.json               Resources/Strings/WhiteLabel
-          try "D: upstream config + bizim strings"  /tmp/upstream-configuration.json Resources/Strings/WhiteLabel
+          DIR=Resources/Strings/WhiteLabel
+
+          # E: yalniz corners_type default-a qaytarilir
+          jq '.style.corners_type = "default"' configuration.json > /tmp/cfg-corners.json
+          # F: butun "az" dil acarlari silinir
+          jq 'def rmaz: walk(if type == "object" then del(.az) else . end); rmaz' \
+            configuration.json > /tmp/cfg-no-az.json
+          # G: hem biri, hem digeri
+          jq '.style.corners_type = "default"' /tmp/cfg-no-az.json > /tmp/cfg-both.json
+          # H: yalniz ekran siyahisi orijinala qaytarilir
+          jq --argjson s "$(jq '.white_label_config.screens_to_display' /tmp/upstream-configuration.json)" \
+            '.white_label_config.screens_to_display = $s' configuration.json > /tmp/cfg-screens.json
+
+          try "E: corners_type=default"        /tmp/cfg-corners.json $DIR
+          try "F: az acarlari silindi"         /tmp/cfg-no-az.json   $DIR
+          try "G: ikisi birlikde"              /tmp/cfg-both.json    $DIR
+          try "H: ekranlar orijinal"           /tmp/cfg-screens.json $DIR
           exit 0
 
       - name: Konfiqurasiya, layihe generasiyasi ve podlar
