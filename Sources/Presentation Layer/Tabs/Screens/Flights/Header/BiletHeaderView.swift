@@ -61,7 +61,7 @@ final class BiletHeaderView: UIView {
 		backgroundColor = .clear
 		isUserInteractionEnabled = true
 
-		logoImageView.image = UIImage(named: "bilet_logo")
+		logoImageView.image = R.image.biletLogo()
 		logoImageView.contentMode = .scaleAspectFit
 		logoImageView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(logoImageView)
@@ -127,7 +127,8 @@ final class BiletHeaderView: UIView {
 
 	// MARK: - Hadisələr
 
-	@objc private func didTapItem(_ sender: UIButton) {
+	@objc
+	private func didTapItem(_ sender: UIButton) {
 		guard HomeService.allCases.indices.contains(sender.tag) else {
 			return
 		}
