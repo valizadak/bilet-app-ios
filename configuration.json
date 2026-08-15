@@ -25,7 +25,7 @@
             "localized": {
                 "az": "https://bilet.az/mexfilik-siyaseti/",
                 "en": "https://bilet.az/mexfilik-siyaseti/",
-                "ru": "https://bilet.az/mexfilik-siyaseti/"
+                "ru": "https://bilet.az/ru/politika-konfidentsialnosti/"
             }
         },
         "feedback_email": "info@bilet.az",
@@ -61,7 +61,8 @@
                 "localized": {
                     "az": "Bilet.az — Azərbaycanın aviabilet portalı. Dünyanın istənilən nöqtəsinə ən sərfəli aviabiletləri tapın.\\n\\nƏlaqə: +994 70 203 48 43 (WhatsApp)\\nE-poçt: info@bilet.az\\nBakı, Azərbaycan",
                     "en": "Bilet.az — the flight ticket portal of Azerbaijan. Find the cheapest flights to any destination in the world.\\n\\nContact: +994 70 203 48 43 (WhatsApp)\\nEmail: info@bilet.az\\nBaku, Azerbaijan",
-                    "ru": "Bilet.az — портал авиабилетов Азербайджана. Найдите самые дешёвые авиабилеты в любую точку мира.\\n\\nКонтакт: +994 70 203 48 43 (WhatsApp)\\nE-mail: info@bilet.az\\nБаку, Азербайджан"
+                    "ru": "Bilet.az — портал авиабилетов Азербайджана. Найдите самые дешёвые авиабилеты в любую точку мира.\\n\\nКонтакт: +994 70 203 48 43 (WhatsApp)\\nE-mail: info@bilet.az\\nБаку, Азербайджан",
+                    "tr": "Bilet.az — Azerbaycan uçak bileti portalı. Dünyanın her noktasına en uygun fiyatlı uçak biletlerini bulun.\\n\\nİletişim: +994 70 203 48 43 (WhatsApp)\\nE-posta: info@bilet.az\\nBakü, Azerbaycan"
                 }
             },
             "developer": {
@@ -96,7 +97,8 @@
                         "localized": {
                             "az": "Əlaqə",
                             "en": "Contact",
-                            "ru": "Контакты"
+                            "ru": "Контакты",
+                            "tr": "İletişim"
                         }
                     },
                     "url": {
@@ -104,7 +106,7 @@
                         "localized": {
                             "az": "https://bilet.az/elaqe/",
                             "en": "https://bilet.az/elaqe/",
-                            "ru": "https://bilet.az/ru/"
+                            "ru": "https://bilet.az/ru/kontakty/"
                         }
                     }
                 }
