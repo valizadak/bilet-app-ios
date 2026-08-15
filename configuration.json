@@ -59,9 +59,9 @@
             "description": {
                 "base": "en",
                 "localized": {
-                    "az": "Bilet.az — Azərbaycanın aviabilet portalı. Dünyanın istənilən nöqtəsinə ən sərfəli aviabiletləri tapın.\n\nƏlaqə: +994 70 203 48 43 (WhatsApp)\nE-poçt: info@bilet.az\nBakı, Azərbaycan",
-                    "en": "Bilet.az — the flight ticket portal of Azerbaijan. Find the cheapest flights to any destination in the world.\n\nContact: +994 70 203 48 43 (WhatsApp)\nEmail: info@bilet.az\nBaku, Azerbaijan",
-                    "ru": "Bilet.az — портал авиабилетов Азербайджана. Найдите самые дешёвые авиабилеты в любую точку мира.\n\nКонтакт: +994 70 203 48 43 (WhatsApp)\nE-mail: info@bilet.az\nБаку, Азербайджан"
+                    "az": "Bilet.az — Azərbaycanın aviabilet portalı. Dünyanın istənilən nöqtəsinə ən sərfəli aviabiletləri tapın.\\n\\nƏlaqə: +994 70 203 48 43 (WhatsApp)\\nE-poçt: info@bilet.az\\nBakı, Azərbaycan",
+                    "en": "Bilet.az — the flight ticket portal of Azerbaijan. Find the cheapest flights to any destination in the world.\\n\\nContact: +994 70 203 48 43 (WhatsApp)\\nEmail: info@bilet.az\\nBaku, Azerbaijan",
+                    "ru": "Bilet.az — портал авиабилетов Азербайджана. Найдите самые дешёвые авиабилеты в любую точку мира.\\n\\nКонтакт: +994 70 203 48 43 (WhatsApp)\\nE-mail: info@bilet.az\\nБаку, Азербайджан"
                 }
             },
             "developer": {
