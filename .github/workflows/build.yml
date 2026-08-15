@@ -39,9 +39,20 @@ jobs:
       - name: Yigma (simulyator, imzalamasiz)
         run: |
           set -o pipefail
+          echo "=== movcud sxemler ve konfiqurasiyalar ==="
+          xcodebuild -workspace travel-app.xcworkspace -list
+
+          # Sxem adi layihe generasiyasindan asili oldugu ucun avtomatik secirik:
+          # "debug" varsa onu, yoxsa tetbiqin oz adini, o da yoxsa birincini.
+          SCHEMES=$(xcodebuild -workspace travel-app.xcworkspace -list -json | jq -r '.workspace.schemes[]')
+          SCHEME=$(echo "$SCHEMES" | grep -ix "debug" | head -1)
+          [ -z "$SCHEME" ] && SCHEME=$(echo "$SCHEMES" | grep -i "travel-app" | head -1)
+          [ -z "$SCHEME" ] && SCHEME=$(echo "$SCHEMES" | head -1)
+          echo "=== secilen sxem: $SCHEME ==="
+
           xcodebuild \
             -workspace travel-app.xcworkspace \
-            -scheme debug \
+            -scheme "$SCHEME" \
             -configuration debug \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 15' \
