@@ -12,9 +12,9 @@
             }
         },
         "display_name": {
-            "base": "az",
+            "base": "en",
             "localized": {
-                "az": "Bilet.az"
+                "en": "Bilet.az"
             }
         }
     },
