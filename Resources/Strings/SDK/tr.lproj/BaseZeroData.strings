@@ -1,0 +1,15 @@
+"no_network_title" = "Bağlantı yok";
+"no_network_subtitle" = "Ağ ayarlarınızı kontrol edip\ntekrar deneyin ";
+"something_went_wrong_title" = "Bir şeyler ters gitti…";
+"something_went_wrong_subtitle" = "Lütfen tekrar deneyin veya daha sonra deneyin";
+"locations_search_no_results_title" = "Hiçbir şey bulunamadı";
+"locations_search_no_results_subtitle" = "Arama parametrelerini değiştirmeyi deneyin";
+"flights_search_no_results_title" = "Uçuş yok";
+"flights_search_no_results_subtitle" = "Arama parametrelerinizi değiştirin\nve tekrar deneyin";
+"currency_search_no_results_title" = "Para birimi bulunamadı";
+"currency_search_no_results_subtitle" = "Arama parametrelerini değiştirmeyi deneyin";
+"flights_favorites_no_result_title" = "Favorilerinizde uçuş rotası yok";
+"flights_favorites_no_result_subtitle" = "Daha sonra geri dönebilmek için\nfavori rotalarınızı kaydedin";
+"retry_button_title" = "Yeniden dene";
+"repeat_button_title" = "Tekrar ara";
+"find_flights_button_title" = "Uçuş Ara";

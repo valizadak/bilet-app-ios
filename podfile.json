@@ -1,0 +1,472 @@
+{
+	"packages": [
+		"json"
+	],
+	"platform": {
+		"name": "ios",
+		"version": "14.0"
+	},
+	"sources": [
+		"https://github.com/appodeal/CocoaPods.git",
+		"https://github.com/CocoaPods/Specs.git"
+	],
+	"inhibit_all_warnings": true,
+	"use_frameworks": "dynamic",
+	"install": {
+		"method": "cocoapods",
+		"options": {
+			"warn_for_multiple_pod_sources": false
+		}
+	},
+	"workspace": "travel-app.xcworkspace",
+	"functions": [
+		{
+			"name": "appodeal_base_pods",
+			"comment": "Appodeal pods",
+			"pods": [
+				{
+					"name": "Appodeal",
+					"version": "3.4.1",
+					"comment": "Required"
+				},
+				{
+					"name": "APDBidMachineAdapter",
+					"version": "3.4.1.1",
+					"comment": "Required"
+				},
+				{
+					"name": "APDIABAdapter",
+					"version": "3.4.1.0",
+					"comment": "Required"
+				}
+			]
+		},
+		{
+			"name": "appodeal_facebook_pods",
+			"pods": [
+				{
+					"name": "APDFacebookAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDMetaAudienceNetworkAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "BidMachineMetaAudienceAdapter",
+					"version": "3.1.0.2"
+				}
+			]
+		},
+		{
+			"name": "appodeal_optional_pods",
+			"pods": [
+				{
+					"name": "APDAdjustAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDAmazonAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDAppLovinAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDAppLovinMAXAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDAppsFlyerAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDBidonAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDBigoAdsAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDDTExchangeAdapter",
+					"version": "3.4.1.1"
+				},
+				{
+					"name": "APDFirebaseAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDGoogleAdMobAdapter",
+					"version": "3.4.1.0",
+					"enabled": {
+						"name": "configuration",
+						"paths": [
+							"advertising",
+							"google_admob_app_id"
+						],
+						"conditions": [
+							"not_nil",
+							"not_empty"
+						]
+					}
+				},
+				{
+					"name": "APDInMobiAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDIronSourceAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDMintegralAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDMyTargetAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDPangleAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDSentryAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDSmaatoAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDUnityAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDVungleAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "APDYandexAdapter",
+					"version": "3.4.1.0"
+				},
+				{
+					"name": "AmazonPublisherServicesSDK",
+					"version": "4.10.1.0"
+				},
+				{
+					"name": "AppLovinMediationAmazonAdMarketplaceAdapter",
+					"version": "4.10.1.0"
+				},
+				{
+					"name": "AppLovinMediationBidMachineAdapter",
+					"version": "3.1.2.0.0"
+				},
+				{
+					"name": "AppLovinMediationFacebookAdapter",
+					"version": "6.15.2.1"
+				},
+				{
+					"name": "AppLovinMediationFyberAdapter",
+					"version": "8.3.4.0"
+				},
+				{
+					"name": "AppLovinMediationGoogleAdManagerAdapter",
+					"version": "11.12.0.0"
+				},
+				{
+					"name": "AppLovinMediationGoogleAdapter",
+					"version": "11.12.0.0"
+				},
+				{
+					"name": "AppLovinMediationInMobiAdapter",
+					"version": "10.8.0.0"
+				},
+				{
+					"name": "AppLovinMediationIronSourceAdapter",
+					"version": "8.5.0.0.0"
+				},
+				{
+					"name": "AppLovinMediationMintegralAdapter",
+					"version": "7.7.3.0.0"
+				},
+				{
+					"name": "AppLovinMediationMyTargetAdapter",
+					"version": "5.21.9.1"
+				},
+				{
+					"name": "AppLovinMediationUnityAdsAdapter",
+					"version": "4.12.5.0"
+				},
+				{
+					"name": "AppLovinMediationVungleAdapter",
+					"version": "7.4.1.1"
+				},
+				{
+					"name": "AppLovinMediationYandexAdapter",
+					"version": "5.2.1.0"
+				},
+				{
+					"name": "BidMachineAmazonAdapter",
+					"version": "3.1.0.0"
+				},
+				{
+					"name": "BidMachineMintegralAdapter",
+					"version": "3.1.0.0"
+				},
+				{
+					"name": "BidMachineMyTargetAdapter",
+					"version": "3.1.0.0"
+				},
+				{
+					"name": "BidMachinePangleAdapter",
+					"version": "3.1.0.0"
+				},
+				{
+					"name": "BidMachineVungleAdapter",
+					"version": "3.1.0.0"
+				},
+				{
+					"name": "BidonAdapterAppLovin",
+					"version": "0.7.1.0"
+				},
+				{
+					"name": "BidonAdapterBidMachine",
+					"version": "0.7.1.1"
+				},
+				{
+					"name": "BidonAdapterBigoAds",
+					"version": "0.7.1.0"
+				},
+				{
+					"name": "BidonAdapterChartboost",
+					"version": "0.7.1.0"
+				},
+				{
+					"name": "BidonAdapterDTExchange",
+					"version": "0.7.1.1"
+				},
+				{
+					"name": "BidonAdapterGoogleAdManager",
+					"version": "0.7.1.0"
+				},
+				{
+					"name": "BidonAdapterGoogleMobileAds",
+					"version": "0.7.1.0"
+				},
+				{
+					"name": "BidonAdapterInMobi",
+					"version": "0.7.1.0"
+				},
+				{
+					"name": "BidonAdapterIronSource",
+					"version": "0.7.1.0"
+				},
+				{
+					"name": "BidonAdapterMetaAudienceNetwork",
+					"version": "0.7.1.0"
+				},
+				{
+					"name": "BidonAdapterMintegral",
+					"version": "0.7.1.0"
+				},
+				{
+					"name": "BidonAdapterMyTarget",
+					"version": "0.7.1.0"
+				},
+				{
+					"name": "BidonAdapterUnityAds",
+					"version": "0.7.1.0"
+				},
+				{
+					"name": "BidonAdapterVungle",
+					"version": "0.7.1.0"
+				},
+				{
+					"name": "BidonAdapterYandex",
+					"version": "0.7.1.0"
+				},
+				{
+					"name": "bigo-ads-max-adapter",
+					"version": "4.5.1.1"
+				}
+			],
+			"functions": [
+				{
+					"name": "appodeal_facebook_pods",
+					"enabled": {
+						"name": "constant",
+						"value": false
+					}
+				}
+			]
+		},
+		{
+			"name": "appsflyer_pods",
+			"comment": "AppsFlyer pods",
+			"pods": [
+				{
+					"name": "AppsFlyerFramework",
+					"version": "6.13.0"
+				}
+			]
+		},
+		{
+			"name": "firebase_messaging_pods",
+			"comment": "Firebase pods",
+			"pods": [
+				{
+					"name": "GoogleUtilities",
+					"version": "7.13.0"
+				},
+				{
+					"name": "FirebaseMessaging",
+					"version": "10.23.0"
+				}
+			]
+		},
+		{
+			"name": "firebase_pods",
+			"pods": [
+				{
+					"name": "Firebase",
+					"version": "10.23.0"
+				},
+				{
+					"name": "FirebaseCore",
+					"version": "10.23.0"
+				},
+				{
+					"name": "FirebaseCrashlytics",
+					"version": "10.23.0"
+				},
+				{
+					"name": "FirebaseAnalytics/WithoutAdIdSupport",
+					"version": "10.23.0"
+				}
+			],
+			"functions": [
+				{
+					"name": "firebase_messaging_pods"
+				}
+			],
+			"script_phases": [
+				{
+					"comment": "Crashlytics workaround, see https://github.com/yonaskolb/XcodeGen/blob/master/Docs/FAQ.md#can-i-use-crashlytics",
+					"name": "Run FirebaseCrashlytics",
+					"script": "\"${PODS_ROOT}\/FirebaseCrashlytics\/run\"",
+					"input_files": [
+						"$(SRCROOT)\/$(BUILT_PRODUCTS_DIR)\/$(INFOPLIST_PATH)"
+					]
+				}
+			]
+		},
+		{
+			"name": "main_pods",
+			"comment": "Main target pods",
+			"pods": [
+				{
+					"name": "ABIcons",
+					"git": "https://github.com/CleverPumpkin/abicons-ios.git",
+					"tag": "0.2.1",
+					"excluded_from_sdk": true
+				},
+				{
+					"name": "SwiftLint",
+					"version": "0.43.1"
+				},
+				{
+					"name": "ESTabBarController-swift",
+					"version": "2.8.0"
+				},
+				{
+					"name": "WLSDK",
+					"version": "1.8.0"
+				},
+				{
+					"name": "WLSDK/WhiteLabelSupport",
+					"version": "1.8.0"
+				}
+			]
+		}
+	],
+	"abstract_targets": [
+		{
+			"comment": "Pods used across all modules and targets",
+			"name": "General",
+			"pods": [
+				{
+					"name": "CombineExt",
+					"version": "1.8.0",
+					"max_version": "< 2.0.0"
+				},
+				{
+					"name": "R.swift",
+					"version": "7.2.4",
+					"max_version": "< 8.0.0"
+				}
+			],
+			"targets": [
+				{
+					"name": "travel-app-notification-service-extension",
+					"functions": [
+						{
+							"name": "firebase_messaging_pods"
+						}
+					]
+				},
+				{
+					"name": "travel-app",
+					"functions": [
+						{
+							"name": "main_pods"
+						},
+						{
+							"name": "firebase_pods"
+						},
+						{
+							"name": "appodeal_base_pods",
+							"enabled": {
+								"name": "configuration",
+								"paths": [
+									"advertising",
+									"appodeal_api_key"
+								],
+								"conditions": [
+									"not_nil",
+									"not_empty"
+								]
+							}
+						},
+						{
+							"name": "appodeal_optional_pods",
+							"enabled": {
+								"name": "constant",
+								"value": false
+							}
+						},
+						{
+							"name": "appsflyer_pods",
+							"enabled": {
+								"name": "configuration",
+								"paths": [
+									"constants",
+									"appsflyer_dev_key"
+								],
+								"conditions": [
+									"not_nil",
+									"not_empty"
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"additional_build_settings": {
+		"BUILD_LIBRARY_FOR_DISTRIBUTION": "YES"
+	}
+}

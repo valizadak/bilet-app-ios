@@ -1,0 +1,15 @@
+"no_network_title" = "Δεν υπάρχει σύνδεση";
+"no_network_subtitle" = "Ελέγξτε τις ρυθμίσεις του δικτύου σας\nκαι δοκιμάστε ξανά ";
+"something_went_wrong_title" = "Κάτι πήγε στραβά";
+"something_went_wrong_subtitle" = "Προσπαθήστε ξανά ή δοκιμάστε αργότερα";
+"locations_search_no_results_title" = "Δε βρέθηκε τίποτα";
+"locations_search_no_results_subtitle" = "Προσπάθησε να αλλάξεις τις παραμέτρους αναζήτησης";
+"flights_search_no_results_title" = "Δε βρέθηκαν πτήσεις";
+"flights_search_no_results_subtitle" = "Βελτιώστε τις παραμέτρους αναζήτησης\nκαι δοκιμάστε ξανά";
+"currency_search_no_results_title" = "Το νόμισμα δεν βρέθηκε";
+"currency_search_no_results_subtitle" = "Προσπάθησε να αλλάξεις τις παραμέτρους αναζήτησης";
+"flights_favorites_no_result_title" = "Δεν υπάρχουν δρομολόγια πτήσεων στα αγαπημένα σας";
+"flights_favorites_no_result_subtitle" = "Αποθηκεύστε τις αγαπημένες σας διαδρομές, ώστε\nνα μπορείτε να επιστρέψετε σε αυτές αργότερα";
+"retry_button_title" = "Ξαναδοκιμασε";
+"repeat_button_title" = "Νέα αναζήτηση";
+"find_flights_button_title" = "Αναζήτηση πτήσεων";

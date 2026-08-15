@@ -1,0 +1,60 @@
+# Pulsuz kompilyasiya yoxlaması.
+# Məqsəd: Mac icarəyə götürməzdən əvvəl bütün Swift səhvlərini aşkarlamaq.
+# Simulyator üçün yığır, imzalama tələb etmir — Apple hesabı lazım deyil.
+
+name: iOS yigma yoxlamasi
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+    timeout-minutes: 60
+
+    steps:
+      - name: Kodu goturur
+        uses: actions/checkout@v4
+
+      - name: Ruby ve gem-ler
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Homebrew asililiqlari (xcodegen, needle)
+        run: brew bundle
+
+      - name: CocoaPods kesi
+        uses: actions/cache@v4
+        with:
+          path: Pods
+          key: pods-${{ hashFiles('podfile.json', 'Podfile.lock') }}
+          restore-keys: pods-
+
+      - name: Konfiqurasiya, layihe generasiyasi ve podlar
+        run: bundle exec fastlane setup
+
+      - name: Yigma (simulyator, imzalamasiz)
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -workspace travel-app.xcworkspace \
+            -scheme debug \
+            -configuration debug \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            build
+
+      - name: Sehv jurnallarini saxlayir
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: |
+            ~/Library/Logs/gym
+            *.log
+          if-no-files-found: ignore

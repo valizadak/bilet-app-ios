@@ -1,0 +1,15 @@
+"no_network_title" = "Bağlantı yoxdur";
+"no_network_subtitle" = "Şəbəkə ayarlarını yoxlayın\nvə yenidən cəhd edin ";
+"something_went_wrong_title" = "Nəsə səhv getdi…";
+"something_went_wrong_subtitle" = "Yenidən cəhd edin və ya bir azdan yoxlayın";
+"locations_search_no_results_title" = "Heç nə tapılmadı";
+"locations_search_no_results_subtitle" = "Axtarış parametrlərini dəyişməyə cəhd edin";
+"flights_search_no_results_title" = "Uçuş tapılmadı";
+"flights_search_no_results_subtitle" = "Axtarış parametrlərini dəyişin\nvə yenidən cəhd edin";
+"currency_search_no_results_title" = "Valyuta tapılmadı";
+"currency_search_no_results_subtitle" = "Axtarış parametrlərini dəyişməyə cəhd edin";
+"flights_favorites_no_result_title" = "Seçilmişlərdə uçuş yoxdur";
+"flights_favorites_no_result_subtitle" = "Sevimli marşrutlarınızı yadda saxlayın ki,\n sonra onlara qayıda biləsiniz";
+"retry_button_title" = "Yenidən cəhd et";
+"repeat_button_title" = "Yenidən axtar";
+"find_flights_button_title" = "Uçuş axtar";

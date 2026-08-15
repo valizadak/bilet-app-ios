@@ -1,0 +1,11 @@
+"title" = "Ucuz aviabilet axtarın";
+"departure_airport_loading_placeholder" = "Gediş şəhəri müəyyən edilir";
+"departure_airport_placeholder" = "Haradan";
+"arrival_airport_placeholder" = "Hara";
+"dates_placeholder" = "Tarixlər";
+"passengers_placeholder" = "Sərnişinlər və sinif";
+"search_button_title" = "Axtar";
+"location_not_found_alert_title" = "Şəhər tapılmadı";
+"link_not_recognized_alert_title" = "Link tanınmadı";
+"dates_are_outdated_alert_title" = "Seçilmiş tarixlər keçib";
+"enter_parameters_manually_alert_subtitle" = "Axtarış parametrlərini əl ilə seçin";

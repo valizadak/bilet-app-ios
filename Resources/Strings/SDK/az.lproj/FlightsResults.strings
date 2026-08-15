@@ -1,0 +1,15 @@
+"progress_bar_title" = "Uçuşlar axtarılır…";
+"filters_button_title" = "Filtrlər";
+"price_chart_button_title" = "Qiymət qrafiki";
+"widget_title_cell_title" = "Birbaşa uçuşlar";
+"widget_button_cell_show_all_title" = "Hamısını göstər";
+"widget_button_cell_collapse_title" = "Yığcam göstər";
+"ticket_cell_travel_time_title" = "Səfər müddəti";
+"ticket_cell_few_tickets_left_warning_title" = "%@ bu qiymətə";
+"load_more_button_cell_title" = "Daha %@ bilet göstər";
+"footer_text_cell_title" = "Axtarış parametrlərinizə uyğun bütün biletlərə baxdınız.\nYeni nəticələr üçün filtrləri dəyişin";
+"should_update_alert_title" = "Nəticələr köhnəlmiş ola bilər";
+"should_update_alert_message" = "Bilet qiymətləri gündə təxminən 10 dəfə dəyişir. Yenilənmiş qiymətlər üçün axtarışı təzələyin";
+"should_update_alert_update_button_title" = "Axtarışı təzələ";
+"should_update_alert_later_button_title" = "Sonra";
+"ticket_not_found_alert_title" = "Linkiniz üzrə heç bir bilet\ntapa bilmədik";

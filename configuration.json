@@ -1,0 +1,114 @@
+{
+    "base_configuration": {
+        "identifier": {
+            "android": {
+                "id": "az.bilet.app"
+            },
+            "apple": {
+                "id": "az.bilet.app",
+                "team_id": "",
+                "version": "1.0.0",
+                "build_number": 1
+            }
+        },
+        "display_name": {
+            "base": "az",
+            "localized": {
+                "az": "Bilet.az"
+            }
+        }
+    },
+    "constants": {
+        "api_key": "4230d5aac60377c3268c4545f880a622",
+        "policy_url": {
+            "base": "en",
+            "localized": {
+                "az": "https://bilet.az/mexfilik-siyaseti/",
+                "en": "https://bilet.az/mexfilik-siyaseti/",
+                "ru": "https://bilet.az/mexfilik-siyaseti/"
+            }
+        },
+        "feedback_email": "info@bilet.az",
+        "google_maps_api_key": "",
+        "appstore_id": "",
+        "client_device_host": "bilet.az",
+        "marker": "266031",
+        "sharing_data": {
+            "sharing_link": "https://bilet.az",
+            "handling_link": "https://bilet.az"
+        },
+        "appsflyer_dev_key": ""
+    },
+    "advertising": {
+        "appodeal_api_key": "",
+        "google_admob_app_id": null,
+        "placements": {
+            "air_ticket_placement_interstitial": "",
+            "air_ticket_placement_banner": ""
+        }
+    },
+    "style": {
+        "base_color": "#00B0DD",
+        "corners_type": "round",
+        "icons_type": "tint",
+        "palette": "lab"
+    },
+    "info_screen_config": {
+        "items_to_display": ["favorites", "about_app", "rate_app", "share_app"],
+        "about_app_info": {
+            "description": {
+                "base": "en",
+                "localized": {
+                    "az": "Bilet.az — Azərbaycanın aviabilet portalı. Dünyanın istənilən nöqtəsinə ən sərfəli aviabiletləri tapın.\n\nƏlaqə: +994 70 203 48 43 (WhatsApp)\nE-poçt: info@bilet.az\nBakı, Azərbaycan",
+                    "en": "Bilet.az — the flight ticket portal of Azerbaijan. Find the cheapest flights to any destination in the world.\n\nContact: +994 70 203 48 43 (WhatsApp)\nEmail: info@bilet.az\nBaku, Azerbaijan",
+                    "ru": "Bilet.az — портал авиабилетов Азербайджана. Найдите самые дешёвые авиабилеты в любую точку мира.\n\nКонтакт: +994 70 203 48 43 (WhatsApp)\nE-mail: info@bilet.az\nБаку, Азербайджан"
+                }
+            },
+            "developer": {
+                "base": "en",
+                "localized": {
+                    "az": "Granit AS Travel",
+                    "en": "Granit AS Travel",
+                    "ru": "Granit AS Travel"
+                }
+            },
+            "partner_url": {
+                "base": "en",
+                "localized": {
+                    "az": "https://bilet.az",
+                    "en": "https://bilet.az",
+                    "ru": "https://bilet.az/ru/"
+                }
+            }
+        }
+    },
+    "white_label_config": {
+        "screens_to_display": [
+            {
+                "type": "flights"
+            },
+            {
+                "type": "other",
+                "parameters": {
+                    "icon": "ic_other_1",
+                    "title": {
+                        "base": "en",
+                        "localized": {
+                            "az": "Əlaqə",
+                            "en": "Contact",
+                            "ru": "Контакты"
+                        }
+                    },
+                    "url": {
+                        "base": "en",
+                        "localized": {
+                            "az": "https://bilet.az/elaqe/",
+                            "en": "https://bilet.az/elaqe/",
+                            "ru": "https://bilet.az/ru/"
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

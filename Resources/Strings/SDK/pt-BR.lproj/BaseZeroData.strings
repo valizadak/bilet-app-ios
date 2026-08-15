@@ -1,0 +1,15 @@
+"no_network_title" = "Sem conexão";
+"no_network_subtitle" = "Verifique suas configurações de rede\ne tente novamente ";
+"something_went_wrong_title" = "Algo deu errado…";
+"something_went_wrong_subtitle" = "Tente novamente ou tente mais tarde";
+"locations_search_no_results_title" = "Não encontramos nada";
+"locations_search_no_results_subtitle" = "Tente mudar os parâmetros de busca";
+"flights_search_no_results_title" = "Nenhum voo";
+"flights_search_no_results_subtitle" = "Ajuste seus parâmetros de pesquisa\ne tente novamente";
+"currency_search_no_results_title" = "Unidade monetária não encontrada";
+"currency_search_no_results_subtitle" = "Tente mudar os parâmetros de busca";
+"flights_favorites_no_result_title" = "Nenhuma rota de voo em seus favoritos";
+"flights_favorites_no_result_subtitle" = "Salve suas rotas favoritas\npara que você possa achá-las facilmente depois";
+"retry_button_title" = "Tentar novamente";
+"repeat_button_title" = "Pesquisar novamente";
+"find_flights_button_title" = "Buscar voos";

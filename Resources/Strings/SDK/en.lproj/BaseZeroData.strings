@@ -1,0 +1,15 @@
+"no_network_title" = "No connection";
+"no_network_subtitle" = "Check your network settings\nand try again ";
+"something_went_wrong_title" = "Something went wrong…";
+"something_went_wrong_subtitle" = "Please try again or try later";
+"locations_search_no_results_title" = "Nothing found";
+"locations_search_no_results_subtitle" = "Try changing your search parameters";
+"flights_search_no_results_title" = "No flights found";
+"flights_search_no_results_subtitle" = "Tweak your search parameters\nand try again";
+"currency_search_no_results_title" = "Currency not found";
+"currency_search_no_results_subtitle" = "Try changing your search parameters";
+"flights_favorites_no_result_title" = "No flight routes in your favorites";
+"flights_favorites_no_result_subtitle" = "Save your favorite routes so that you can\n come back to them later";
+"retry_button_title" = "Try again";
+"repeat_button_title" = "Search again";
+"find_flights_button_title" = "Search flights";
