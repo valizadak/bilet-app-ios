@@ -73,12 +73,23 @@ jobs:
           jq --slurpfile o $O '.info_screen_config              = $o[0].info_screen_config'              /tmp/c4.json > /tmp/c5.json
           jq --slurpfile o $O '.white_label_config              = $o[0].white_label_config'              /tmp/c5.json > /tmp/c6.json
 
-          try "1: +identifier"        /tmp/c1.json $DIR
-          try "2: +display_name"      /tmp/c2.json $DIR
-          try "3: +constants"         /tmp/c3.json $DIR
-          try "4: +style"             /tmp/c4.json $DIR
-          try "5: +info_screen"       /tmp/c5.json $DIR
-          try "6: +white_label"       /tmp/c6.json $DIR
+          # info_screen_config gunahkardir — icini ayird edirik (/tmp/c4.json kecirdi)
+          A=.info_screen_config.about_app_info
+          jq --slurpfile o $O ".info_screen_config.items_to_display = \$o[0].info_screen_config.items_to_display" /tmp/c4.json > /tmp/d1.json
+          jq --slurpfile o $O "$A.developer   = \$o[0]$A.developer"   /tmp/d1.json > /tmp/d2.json
+          jq --slurpfile o $O "$A.partner_url = \$o[0]$A.partner_url" /tmp/d2.json > /tmp/d3.json
+          jq --slurpfile o $O "$A.description = \$o[0]$A.description" /tmp/d3.json > /tmp/d4.json
+          # d5: eyni, amma metnlerdeki setir kecidleri bosluqla evez olunur
+          jq "$A.description.localized |= with_entries(.value |= gsub(\"\n\"; \" \"))" /tmp/d4.json > /tmp/d5.json
+          # d6: eyni, amma az acari silinir
+          jq "del($A.description.localized.az)" /tmp/d4.json > /tmp/d6.json
+
+          try "d1: +items_to_display"      /tmp/d1.json $DIR
+          try "d2: +developer"             /tmp/d2.json $DIR
+          try "d3: +partner_url"           /tmp/d3.json $DIR
+          try "d4: +description"           /tmp/d4.json $DIR
+          try "d5: description setirsiz"   /tmp/d5.json $DIR
+          try "d6: description az-siz"     /tmp/d6.json $DIR
           exit 0
 
       - name: Konfiqurasiya, layihe generasiyasi ve podlar
