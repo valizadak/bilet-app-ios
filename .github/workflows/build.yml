@@ -61,22 +61,24 @@ jobs:
           }
 
           DIR=Resources/Strings/WhiteLabel
+          UP=/tmp/upstream-configuration.json
+          O=configuration.json
 
-          # E: yalniz corners_type default-a qaytarilir
-          jq '.style.corners_type = "default"' configuration.json > /tmp/cfg-corners.json
-          # F: butun "az" dil acarlari silinir
-          jq 'def rmaz: walk(if type == "object" then del(.az) else . end); rmaz' \
-            configuration.json > /tmp/cfg-no-az.json
-          # G: hem biri, hem digeri
-          jq '.style.corners_type = "default"' /tmp/cfg-no-az.json > /tmp/cfg-both.json
-          # H: yalniz ekran siyahisi orijinala qaytarilir
-          jq --argjson s "$(jq '.white_label_config.screens_to_display' /tmp/upstream-configuration.json)" \
-            '.white_label_config.screens_to_display = $s' configuration.json > /tmp/cfg-screens.json
+          # Orijinaldan basdayaraq oz deyisikliklerimizi bir-bir elave edirik.
+          # Ilk sinan addim gunahkar sahedir.
+          jq --slurpfile o $O '.base_configuration.identifier   = $o[0].base_configuration.identifier'   $UP       > /tmp/c1.json
+          jq --slurpfile o $O '.base_configuration.display_name = $o[0].base_configuration.display_name' /tmp/c1.json > /tmp/c2.json
+          jq --slurpfile o $O '.constants                       = $o[0].constants'                       /tmp/c2.json > /tmp/c3.json
+          jq --slurpfile o $O '.style                           = $o[0].style'                           /tmp/c3.json > /tmp/c4.json
+          jq --slurpfile o $O '.info_screen_config              = $o[0].info_screen_config'              /tmp/c4.json > /tmp/c5.json
+          jq --slurpfile o $O '.white_label_config              = $o[0].white_label_config'              /tmp/c5.json > /tmp/c6.json
 
-          try "E: corners_type=default"        /tmp/cfg-corners.json $DIR
-          try "F: az acarlari silindi"         /tmp/cfg-no-az.json   $DIR
-          try "G: ikisi birlikde"              /tmp/cfg-both.json    $DIR
-          try "H: ekranlar orijinal"           /tmp/cfg-screens.json $DIR
+          try "1: +identifier"        /tmp/c1.json $DIR
+          try "2: +display_name"      /tmp/c2.json $DIR
+          try "3: +constants"         /tmp/c3.json $DIR
+          try "4: +style"             /tmp/c4.json $DIR
+          try "5: +info_screen"       /tmp/c5.json $DIR
+          try "6: +white_label"       /tmp/c6.json $DIR
           exit 0
 
       - name: Konfiqurasiya, layihe generasiyasi ve podlar
