@@ -33,6 +33,39 @@ jobs:
           key: pods-${{ hashFiles('podfile.json', 'Podfile.lock') }}
           restore-keys: pods-
 
+      # Konfiquratorun hansi girisden narazi qaldigini tapmaq ucun
+      # variantlari yan-yana sinayiriq. Sebeb tapilandan sonra silinecek.
+      - name: Diaqnostika
+        run: |
+          set +e
+          CFG=Scripts/project_configurator/project_configurator
+          chmod +x "$CFG"
+          curl -sSL -o /tmp/upstream-configuration.json \
+            https://raw.githubusercontent.com/travelpayouts/white-label-app-ios/main/configuration.json
+          echo "upstream config alindi: $(wc -c < /tmp/upstream-configuration.json) bayt"
+          cp -R Resources/Strings/WhiteLabel /tmp/wl-no-az
+          rm -rf /tmp/wl-no-az/az.lproj
+          echo "az-siz strings dir hazir: $(ls /tmp/wl-no-az | tr '\n' ' ')"
+
+          try () {
+            local name="$1" cfg="$2" dir="$3"
+            rm -rf /tmp/out && mkdir -p /tmp/out/gen /tmp/out/xc /tmp/out/ent /tmp/out/pod
+            echo "===== $name ====="
+            "$CFG" --configuration-input "$cfg" --podfile-input podfile.json \
+              --configurator-output /tmp/out/gen --podfile-output /tmp/out/pod \
+              --xc-config-output /tmp/out/xc --entitlements-output /tmp/out/ent \
+              --info-plist-strings-dir "$dir" --is-production true \
+              --product-version 1.8.0 --project-yaml-path project.yml
+            echo ">>> $name netice: $?"
+            echo
+          }
+
+          try "A: upstream config + az-siz strings" /tmp/upstream-configuration.json /tmp/wl-no-az
+          try "B: bizim config + az-siz strings"    configuration.json               /tmp/wl-no-az
+          try "C: bizim config + bizim strings"     configuration.json               Resources/Strings/WhiteLabel
+          try "D: upstream config + bizim strings"  /tmp/upstream-configuration.json Resources/Strings/WhiteLabel
+          exit 0
+
       - name: Konfiqurasiya, layihe generasiyasi ve podlar
         run: bundle exec fastlane setup
 
