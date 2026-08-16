@@ -106,8 +106,8 @@ final class FlightsContainerViewController: UIViewController {
 		headerView.onSelect = { [weak self] service in
 			self?.open(service)
 		}
-		headerView.onLanguageTap = { [weak self] in
-			self?.showLanguagePicker()
+		headerView.onLanguageTap = {
+			Self.openSystemLanguageSettings()
 		}
 	}
 
@@ -185,83 +185,15 @@ final class FlightsContainerViewController: UIViewController {
 
 	// MARK: - Dil
 
-	private func showLanguagePicker() {
-		let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-
-		for language in AppLanguage.supported {
-			let isCurrent = language.code == AppLanguage.current
-			let title = isCurrent ? "\(language.title)  ✓" : language.title
-			sheet.addAction(UIAlertAction(title: title, style: .default) { [weak self] _ in
-				guard !isCurrent else {
-					return
-				}
-				AppLanguage.set(language.code)
-				self?.headerView.refreshLanguageTitle()
-				self?.showRestartNotice()
-			})
+	/// Telefonun ayarlarında tətbiqin öz səhifəsini açır. Orada iOS-un
+	/// "Preferred Language" bölməsi olur: dil seçiləndən sonra sistem
+	/// tətbiqi özü yenidən açır, istifadəçidən heç nə tələb olunmur.
+	private static func openSystemLanguageSettings() {
+		guard let url = URL(string: UIApplication.openSettingsURLString),
+			  UIApplication.shared.canOpenURL(url) else {
+			return
 		}
-
-		sheet.addAction(UIAlertAction(title: cancelTitle, style: .cancel))
-
-		// iPad-də action sheet mənbə tələb edir
-		sheet.popoverPresentationController?.sourceView = headerView
-		sheet.popoverPresentationController?.sourceRect = headerView.bounds
-
-		present(sheet, animated: true)
-	}
-
-	/// iOS-da dil dəyişikliyi yalnız tətbiq yenidən açılanda qüvvəyə minir.
-	/// Prosesi zorla bağlamaq App Store qaydalarına ziddir, ona görə
-	/// istifadəçidən tətbiqi bağlayıb açması xahiş olunur.
-	private func showRestartNotice() {
-		let alert = UIAlertController(
-			title: restartTitle,
-			message: restartMessage,
-			preferredStyle: .alert
-		)
-		alert.addAction(UIAlertAction(title: "OK", style: .default))
-		present(alert, animated: true)
-	}
-
-	// MARK: - Mətnlər
-
-	private var cancelTitle: String {
-		switch AppLanguage.current {
-		case "ru":
-			return "Отмена"
-		case "en":
-			return "Cancel"
-		case "tr":
-			return "İptal"
-		default:
-			return "Ləğv et"
-		}
-	}
-
-	private var restartTitle: String {
-		switch AppLanguage.current {
-		case "ru":
-			return "Язык изменён"
-		case "en":
-			return "Language changed"
-		case "tr":
-			return "Dil değiştirildi"
-		default:
-			return "Dil dəyişdirildi"
-		}
-	}
-
-	private var restartMessage: String {
-		switch AppLanguage.current {
-		case "ru":
-			return "Закройте и снова откройте приложение, чтобы изменения вступили в силу."
-		case "en":
-			return "Close and reopen the app for the change to take effect."
-		case "tr":
-			return "Değişikliğin geçerli olması için uygulamayı kapatıp yeniden açın."
-		default:
-			return "Dəyişikliyin qüvvəyə minməsi üçün tətbiqi bağlayıb yenidən açın."
-		}
+		UIApplication.shared.open(url)
 	}
 
 	// MARK: - Xidmətlər
