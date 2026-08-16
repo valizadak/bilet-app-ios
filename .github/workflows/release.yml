@@ -1,0 +1,126 @@
+# App Store-a yükləmə. Əl ilə işə salınır (Actions → Run workflow),
+# hər push-da işləməsin deyə.
+#
+# Sertifikat və provisioning profil əvvəlcədən hazırlanmır — Xcode onları
+# App Store Connect API açarı ilə özü yaradır (-allowProvisioningUpdates).
+
+name: App Store-a yukleme
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: "Build nomresi (her yuklemede fərqli olmalidir)"
+        required: true
+        default: "1"
+
+jobs:
+  release:
+    runs-on: macos-15
+    timeout-minutes: 90
+
+    env:
+      TEAM_ID: XPGCUTJUV7
+      SCHEME: release
+      CONFIG: release
+
+    steps:
+      - name: Kodu goturur
+        uses: actions/checkout@v4
+
+      - name: En yeni Xcode secilir
+        run: |
+          NEWEST=$(ls -d /Applications/Xcode_*.app 2>/dev/null | sort -V | tail -1)
+          [ -z "$NEWEST" ] && NEWEST=/Applications/Xcode.app
+          sudo xcode-select -s "$NEWEST"
+          xcodebuild -version
+
+      - name: Ruby ve gem-ler
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Homebrew asililiqlari
+        run: brew bundle
+
+      - name: Build nomresini yazir
+        run: |
+          python3 - "${{ github.event.inputs.build_number }}" <<'PY'
+          import json, sys
+          path = "configuration.json"
+          with open(path, encoding="utf-8") as f:
+              cfg = json.load(f)
+          cfg["base_configuration"]["identifier"]["apple"]["build_number"] = int(sys.argv[1])
+          with open(path, "w", encoding="utf-8") as f:
+              json.dump(cfg, f, ensure_ascii=False, indent=4)
+          print("build number:", sys.argv[1])
+          PY
+
+      - name: Konfiqurasiya, layihe generasiyasi ve podlar
+        run: bundle exec fastlane setup
+
+      # altool acari bu qovluqlardan biriden oxuyur
+      - name: API acarini yerlesdirir
+        run: |
+          mkdir -p ~/private_keys
+          printf '%s\n' "${{ secrets.ASC_KEY_P8 }}" > ~/private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8
+          chmod 600 ~/private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8
+          echo "acar yerlesdirildi"
+
+      - name: Arxiv yaradir
+        run: |
+          set -o pipefail
+          xcodebuild archive \
+            -workspace travel-app.xcworkspace \
+            -scheme "$SCHEME" \
+            -configuration "$CONFIG" \
+            -destination 'generic/platform=iOS' \
+            -archivePath build/Bilet.xcarchive \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath ~/private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8 \
+            -authenticationKeyID "${{ secrets.ASC_KEY_ID }}" \
+            -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
+            DEVELOPMENT_TEAM="$TEAM_ID" \
+            CODE_SIGN_STYLE=Automatic
+
+      - name: IPA cixarir
+        run: |
+          cat > ExportOptions.plist <<EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>teamID</key><string>${TEAM_ID}</string>
+            <key>signingStyle</key><string>automatic</string>
+            <key>uploadSymbols</key><true/>
+            <key>destination</key><string>export</string>
+          </dict>
+          </plist>
+          EOF
+          xcodebuild -exportArchive \
+            -archivePath build/Bilet.xcarchive \
+            -exportPath build/ipa \
+            -exportOptionsPlist ExportOptions.plist \
+            -allowProvisioningUpdates \
+            -authenticationKeyPath ~/private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8 \
+            -authenticationKeyID "${{ secrets.ASC_KEY_ID }}" \
+            -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}"
+          ls -la build/ipa
+
+      - name: TestFlight-a yukleyir
+        run: |
+          IPA=$(find build/ipa -name "*.ipa" | head -1)
+          echo "yuklenir: $IPA"
+          xcrun altool --upload-app -f "$IPA" -t ios \
+            --apiKey "${{ secrets.ASC_KEY_ID }}" \
+            --apiIssuer "${{ secrets.ASC_ISSUER_ID }}"
+
+      - name: IPA-ni saxlayir
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ipa
+          path: build/ipa/*.ipa
+          if-no-files-found: warn

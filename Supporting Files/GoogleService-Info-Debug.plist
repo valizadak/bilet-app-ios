@@ -2,22 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>733484587469-i5mts2se8s04aef15n1v0odctrqcva7q.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.733484587469-i5mts2se8s04aef15n1v0odctrqcva7q</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBREiPmlp4RViyyUZHnxcNl8RRRsX9TFlM</string>
+	<string>AIzaSyDbElI-9kOTAWwBTq7LSekdFJLQh6vRXLI</string>
 	<key>GCM_SENDER_ID</key>
-	<string>733484587469</string>
+	<string>653398619174</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.travelapp.debug</string>
+	<string>az.bilet.app.debug</string>
 	<key>PROJECT_ID</key>
-	<string>travelapp-debug-app</string>
+	<string>az-bilet</string>
 	<key>STORAGE_BUCKET</key>
-	<string>travelapp-debug-app.appspot.com</string>
+	<string>az-bilet.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:733484587469:ios:b9c60f6ebed87181064c84</string>
+	<string>1:653398619174:ios:97a1e51d1410e0fb5022e7</string>
 </dict>
 </plist>
