@@ -141,7 +141,6 @@ enum HomeService: CaseIterable {
 	}
 
 	private static var languageCode: String {
-		let identifier = Locale.preferredLanguages.first ?? "az"
-		return String(identifier.prefix(2)).lowercased()
+		AppLanguage.current
 	}
 }

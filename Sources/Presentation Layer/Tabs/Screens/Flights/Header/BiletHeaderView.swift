@@ -30,6 +30,7 @@ final class BiletHeaderView: UIView {
 		static let menuTop: CGFloat = 18
 		static let menuHeight: CGFloat = 24
 		static let bottom: CGFloat = 10
+		static let languageHeight: CGFloat = 28
 	}
 
 	private enum Palette {
@@ -42,9 +43,18 @@ final class BiletHeaderView: UIView {
 	/// Menyudan xidmət seçiləndə çağırılır. Aviabilet üçün çağırılmır.
 	var onSelect: ((HomeService) -> Void)?
 
+	/// Sağdakı dil düyməsinə basılanda çağırılır.
+	var onLanguageTap: (() -> Void)?
+
 	private let logoImageView = UIImageView()
+	private let languageButton = UIButton(type: .system)
 	private let scrollView = UIScrollView()
 	private let itemsStack = UIStackView()
+
+	/// Dil dəyişəndə düymənin yazısını yeniləmək üçün.
+	func refreshLanguageTitle() {
+		languageButton.setTitle(AppLanguage.currentShortTitle, for: .normal)
+	}
 
 	// MARK: - Yaradılma
 
@@ -70,6 +80,19 @@ final class BiletHeaderView: UIView {
 		logoImageView.contentMode = .scaleAspectFit
 		logoImageView.translatesAutoresizingMaskIntoConstraints = false
 		addSubview(logoImageView)
+
+		// Dil düyməsi: loqonun sağında, Android-dəki kimi yarımşəffaf çərçivədə
+		languageButton.setTitle(AppLanguage.currentShortTitle, for: .normal)
+		languageButton.setTitleColor(Palette.active, for: .normal)
+		languageButton.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
+		languageButton.backgroundColor = UIColor.white.withAlphaComponent(0.18)
+		languageButton.layer.cornerRadius = Layout.languageHeight / 2
+		languageButton.layer.borderWidth = 1
+		languageButton.layer.borderColor = UIColor.white.withAlphaComponent(0.45).cgColor
+		languageButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+		languageButton.addTarget(self, action: #selector(didTapLanguage), for: .touchUpInside)
+		languageButton.translatesAutoresizingMaskIntoConstraints = false
+		addSubview(languageButton)
 
 		scrollView.showsHorizontalScrollIndicator = false
 		scrollView.alwaysBounceHorizontal = true
@@ -100,6 +123,10 @@ final class BiletHeaderView: UIView {
 				equalTo: logoImageView.heightAnchor,
 				multiplier: Layout.logoAspectRatio
 			),
+
+			languageButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Layout.sideInset),
+			languageButton.centerYAnchor.constraint(equalTo: logoImageView.centerYAnchor),
+			languageButton.heightAnchor.constraint(equalToConstant: Layout.languageHeight),
 
 			scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
 			scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -137,6 +164,11 @@ final class BiletHeaderView: UIView {
 	}
 
 	// MARK: - Hadisələr
+
+	@objc
+	private func didTapLanguage() {
+		onLanguageTap?()
+	}
 
 	@objc
 	private func didTapItem(_ sender: UIButton) {
