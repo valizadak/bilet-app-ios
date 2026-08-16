@@ -20,11 +20,14 @@ final class BiletHeaderView: UIView {
 		static let sideInset: CGFloat = 18
 		static let scrollInset: CGFloat = 8
 		static let itemInset: CGFloat = 10
-		static let logoHeight: CGFloat = 26
+		/// Android-də loqo ekran eninin təxminən 36%-ni tuturdu (150dp / 411dp).
+		/// iPhone-da eyni nisbəti saxlamaq üçün hündürlük 32 götürülüb.
+		static let logoHeight: CGFloat = 32
 		/// Loqo faylının öz nisbəti: 480 × 109
 		static let logoAspectRatio: CGFloat = 480.0 / 109.0
 		static let logoTop: CGFloat = 6
-		static let menuTop: CGFloat = 14
+		/// Android-də loqo ilə menyu arasındakı məsafə 18dp idi
+		static let menuTop: CGFloat = 18
 		static let menuHeight: CGFloat = 24
 		static let bottom: CGFloat = 10
 	}
