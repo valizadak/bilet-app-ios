@@ -68,6 +68,10 @@ jobs:
           chmod 600 ~/private_keys/AuthKey_${{ secrets.ASC_KEY_ID }}.p8
           echo "acar yerlesdirildi"
 
+      # Layihenin base.xcconfig faylinda CODE_SIGN_IDENTITY = iPhone Developer
+      # yazilib. Bu, Xcode-u development profili axtarmaga mecbur edir, o da
+      # qeydiyyatdan kecmis cihaz teleb edir. Arxiv ucun distribution lazimdir,
+      # ona gore emr setrinden ustune yaziriq.
       - name: Arxiv yaradir
         run: |
           set -o pipefail
@@ -82,7 +86,8 @@ jobs:
             -authenticationKeyID "${{ secrets.ASC_KEY_ID }}" \
             -authenticationKeyIssuerID "${{ secrets.ASC_ISSUER_ID }}" \
             DEVELOPMENT_TEAM="$TEAM_ID" \
-            CODE_SIGN_STYLE=Automatic
+            CODE_SIGN_STYLE=Automatic \
+            CODE_SIGN_IDENTITY="Apple Distribution"
 
       - name: IPA cixarir
         run: |
