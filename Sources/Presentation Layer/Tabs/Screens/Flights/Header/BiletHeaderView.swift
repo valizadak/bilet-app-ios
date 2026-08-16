@@ -21,6 +21,8 @@ final class BiletHeaderView: UIView {
 		static let scrollInset: CGFloat = 8
 		static let itemInset: CGFloat = 10
 		static let logoHeight: CGFloat = 26
+		/// Loqo faylının öz nisbəti: 480 × 109
+		static let logoAspectRatio: CGFloat = 480.0 / 109.0
 		static let logoTop: CGFloat = 6
 		static let menuTop: CGFloat = 14
 		static let menuHeight: CGFloat = 24
@@ -89,6 +91,12 @@ final class BiletHeaderView: UIView {
 			logoImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Layout.sideInset),
 			logoImageView.topAnchor.constraint(equalTo: topAnchor, constant: Layout.logoTop),
 			logoImageView.heightAnchor.constraint(equalToConstant: Layout.logoHeight),
+			// En verilməsə şəkil öz qutusunun içində mərkəzə düşür və loqo
+			// sol kənardan aralı görünür. Nisbət loqonun öz ölçüsündən gəlir.
+			logoImageView.widthAnchor.constraint(
+				equalTo: logoImageView.heightAnchor,
+				multiplier: Layout.logoAspectRatio
+			),
 
 			scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
 			scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),

@@ -93,6 +93,11 @@ jobs:
           xcrun simctl bootstatus "$UDID" -b
           xcrun simctl install "$UDID" "$APP"
 
+          # Bildiris icazesi pencersi ekranin ortasini ortur — evvelceden
+          # cavablandirmaga calisiriq (Xcode versiyasindan asili olaraq
+          # desteklenmeye biler, ona gore sehv gozardi edilir).
+          xcrun simctl privacy "$UDID" grant all "$BUNDLE" 2>/dev/null || true
+
           mkdir -p ekranlar
           xcrun simctl launch "$UDID" "$BUNDLE" -AppleLanguages "(az)" -AppleLocale az_AZ || true
 
