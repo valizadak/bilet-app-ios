@@ -66,9 +66,52 @@ jobs:
             -configuration debug \
             -sdk iphonesimulator \
             -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             build
+
+      # Tetbiqi simulyatorda acib ekran sekli cekirik — Mac icare etmeden
+      # gorunusu yoxlamaq ucun yegane yol budur.
+      - name: Simulyatorda ekran sekilleri
+        run: |
+          set -e
+          APP=$(find build/Build/Products -maxdepth 3 -name "*.app" | head -1)
+          echo "tetbiq: $APP"
+          BUNDLE=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$APP/Info.plist")
+          echo "bundle id: $BUNDLE"
+
+          # Movcud cihaz tipini secirik: en boyuk iPhone, yoxsa istenilen iPhone
+          DEVTYPE=$(xcrun simctl list devicetypes -j | jq -r '.devicetypes[].identifier' \
+            | grep -E "iPhone-16-Pro-Max|iPhone-16-Pro|iPhone-16|iPhone-15-Pro-Max" | head -1)
+          [ -z "$DEVTYPE" ] && DEVTYPE=$(xcrun simctl list devicetypes -j | jq -r '.devicetypes[].identifier' | grep iPhone | tail -1)
+          RUNTIME=$(xcrun simctl list runtimes -j | jq -r '.runtimes[] | select(.isAvailable) | .identifier' | grep iOS | tail -1)
+          echo "cihaz: $DEVTYPE / $RUNTIME"
+
+          UDID=$(xcrun simctl create bilet-test "$DEVTYPE" "$RUNTIME")
+          xcrun simctl boot "$UDID"
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl install "$UDID" "$APP"
+
+          mkdir -p ekranlar
+          xcrun simctl launch "$UDID" "$BUNDLE" -AppleLanguages "(az)" -AppleLocale az_AZ || true
+
+          # Tetbiq acilib melumat yuklediyi ucun bir nece anda cekirik
+          for t in 8 16 26 40; do
+            sleep 8
+            xcrun simctl io "$UDID" screenshot "ekranlar/ekran-${t}san.png" || true
+            echo "cekildi: ${t} saniye"
+          done
+
+          ls -la ekranlar
+
+      - name: Ekran sekillerini saxlayir
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ekran-sekilleri
+          path: ekranlar/
+          if-no-files-found: warn
 
       - name: Sehv jurnallarini saxlayir
         if: failure()
