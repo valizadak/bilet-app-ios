@@ -4,3 +4,6 @@
 
 #include "travel-app-notification-service-extension-rc.xcconfig"
 #include "../../../Pods/Target Support Files/Pods-General-travel-app-notification-service-extension/Pods-General-travel-app-notification-service-extension.release.xcconfig"
+
+// Uzanti da eyni imza ile imzalanmalidir
+CODE_SIGN_IDENTITY = Apple Distribution

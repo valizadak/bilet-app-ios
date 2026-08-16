@@ -11,3 +11,9 @@ CP_USE_ABICONS = NO
 CP_DEBUG =
 CP_DEBUG_LOGIN =
 CP_VERSION_BG_COLOR =
+
+// App Store-a yukleme distribution imzasi teleb edir.
+// base.xcconfig-de "iPhone Developer" yazilib, burada ustune yazilir.
+// Emr setrinden verilse butun CocoaPods hedeflerine de tetbiq olunur ve
+// onlarla imza ziddiyeti yaranir, ona gore mehz burada teyin edilir.
+CODE_SIGN_IDENTITY = Apple Distribution
