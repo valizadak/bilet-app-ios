@@ -5,8 +5,10 @@
 //  Açılış animasiyası: brend rəngli fonda bilet.az loqosu soldan sağa
 //  açılır, bir an dayanır, sonra əriyib tətbiqi göstərir.
 //
-//  Sistemin öz açılış ekranı (Splash.storyboard) eyni brend rəngindədir,
-//  ona görə keçid gözə çarpmır — istifadəçi ancaq loqonun yazıldığını görür.
+//  Ayrıca pəncərədə göstərilir. Səbəb: əsas pəncərənin kök ekranı
+//  bizim örtükdən sonra qurulur və onu üstündən örtürdü — animasiya
+//  işləyirdi, amma görünmürdü. Yuxarı səviyyəli pəncərə isə hər halda
+//  ən üstdə qalır.
 //
 
 import UIKit
@@ -33,32 +35,40 @@ enum SplashAnimator {
 
 	private static let background = UIColor(red: 0, green: 0xAE / 255, blue: 0xDB / 255, alpha: 1)
 
-	/// Pəncərənin üstünə örtük qoyur və animasiyanı oynadır.
-	/// Bitəndən sonra örtük özü silinir.
-	static func play(over window: UIWindow) {
-		guard let logo = R.image.biletLogo() else {
+	/// Animasiya bitənə qədər pəncərəni saxlayır, sonra buraxır.
+	private static var splashWindow: UIWindow?
+
+	static func play() {
+		guard splashWindow == nil, let logo = R.image.biletLogo() else {
 			return
 		}
 
-		let overlay = UIView(frame: window.bounds)
-		overlay.backgroundColor = background
-		overlay.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-		window.addSubview(overlay)
+		let window = UIWindow(frame: UIScreen.main.bounds)
+		window.windowLevel = .normal + 1
+		window.backgroundColor = background
+		window.isUserInteractionEnabled = false
 
-		let logoWidth = window.bounds.width * Layout.widthRatio
+		let host = UIViewController()
+		host.view.backgroundColor = background
+		window.rootViewController = host
+		window.isHidden = false
+		splashWindow = window
+
+		let bounds = window.bounds
+		let logoWidth = bounds.width * Layout.widthRatio
 		let logoHeight = logoWidth / Layout.aspectRatio
-		let centerY = window.bounds.midY + window.bounds.height * Layout.verticalOffset
+		let centerY = bounds.midY + bounds.height * Layout.verticalOffset
 
 		// Açılma effekti: loqo kəsilən qutunun içindədir, qutunun eni
 		// sıfırdan tam ölçüyə qədər genişlənir.
 		let clip = UIView(frame: CGRect(
-			x: (window.bounds.width - logoWidth) / 2,
+			x: (bounds.width - logoWidth) / 2,
 			y: centerY - logoHeight / 2,
 			width: 0,
 			height: logoHeight
 		))
 		clip.clipsToBounds = true
-		overlay.addSubview(clip)
+		host.view.addSubview(clip)
 
 		let logoView = UIImageView(image: logo)
 		logoView.contentMode = .scaleAspectFit
@@ -78,10 +88,11 @@ enum SplashAnimator {
 					delay: Timing.hold,
 					options: [.curveEaseIn],
 					animations: {
-						overlay.alpha = 0
+						window.alpha = 0
 					},
 					completion: { _ in
-						overlay.removeFromSuperview()
+						window.isHidden = true
+						splashWindow = nil
 					}
 				)
 			}

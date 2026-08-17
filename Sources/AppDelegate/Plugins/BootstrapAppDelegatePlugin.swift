@@ -50,7 +50,7 @@ extension BootstrapAppDelegatePlugin: UIApplicationDelegate {
 
 		// Açılış animasiyası: sistem açılış ekranı ilə eyni brend fonunda
 		// bilet.az loqosu yazılır, sonra əriyib tətbiqi göstərir.
-		SplashAnimator.play(over: window)
+		SplashAnimator.play()
 
 		return true
 	}

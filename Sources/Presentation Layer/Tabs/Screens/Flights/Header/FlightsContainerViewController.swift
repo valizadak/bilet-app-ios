@@ -14,10 +14,15 @@ final class FlightsContainerViewController: UIViewController {
 	// MARK: - Ölçülər
 
 	private enum Layout {
-		/// SDK məzmununun yuxarı sürüşmə payı — başlıq onun boş sahəsini örtsün deyə.
-		/// iPhone ekranı Android-dəkindən uzun olduğu üçün pay da böyükdür:
-		/// 0.14 qoyanda başlıqla axtarış qutusu arasında artıq boşluq qalırdı.
-		static let contentShift: CGFloat = 0.21
+		/// SDK məzmununun yuxarı sürüşmə payı.
+		///
+		/// Sıfırdır və elə qalmalıdır. Məzmunu sürüşdürmək üçün SDK-nın
+		/// görünüşünü ekrandan hündür etmək lazım gəlirdi; bu isə onun daxili
+		/// yerləşdirməsini pozurdu — axtarış nəticələrində SDK-nın öz başlığı
+		/// ("Bakı – İstanbul", geri düyməsi) siyahının üstünə düşürdü.
+		/// Boşluğu azaltmaq lazım gələrsə, SDK-nı yox, öz başlığımızı
+		/// aşağı salmaq lazımdır.
+		static let contentShift: CGFloat = 0
 		/// Ekranın dəyişdiyini yoxlama tezliyi
 		static let watchInterval: TimeInterval = 0.25
 	}
