@@ -14,17 +14,13 @@ final class FlightsContainerViewController: UIViewController {
 	// MARK: - Ölçülər
 
 	private enum Layout {
-		/// SDK məzmununun yuxarı sürüşmə payı.
+		/// SDK məzmununun yuxarı sürüşmə payı — yalnız axtarış ekranında tətbiq olunur.
 		///
-		/// Sıfırdır və elə qalmalıdır. Məzmunu sürüşdürmək üçün SDK-nın
-		/// görünüşünü ekrandan hündür etmək lazım gəlirdi; bu isə onun daxili
-		/// yerləşdirməsini pozurdu — axtarış nəticələrində SDK-nın öz başlığı
-		/// ("Bakı – İstanbul", geri düyməsi) siyahının üstünə düşürdü.
-		/// Boşluğu azaltmaq lazım gələrsə, SDK-nı yox, öz başlığımızı
-		/// aşağı salmaq lazımdır.
-		static let contentShift: CGFloat = 0
-		/// Ekranın dəyişdiyini yoxlama tezliyi
-		static let watchInterval: TimeInterval = 0.25
+		/// Diqqət: sürüşdürmə SDK-nın görünüşünü ekrandan hündür edir. Başqa
+		/// ekrana keçəndə dərhal ləğv edilməsə, SDK öz başlığını yanlış
+		/// hündürlüyə görə yerləşdirir və o, siyahının üstünə düşür.
+		/// Ona görə ekran dəyişikliyi hər kadrda yoxlanılır.
+		static let contentShift: CGFloat = 0.21
 	}
 
 	// MARK: - Xüsusiyyətlər
@@ -35,7 +31,7 @@ final class FlightsContainerViewController: UIViewController {
 
 	/// Axtarış ekranının növü. Üstdəki ekran bundan fərqlənəndə başlıq gizlənir.
 	private var rootScreenKind: String?
-	private var watchTimer: Timer?
+	private var screenWatcher: CADisplayLink?
 
 	// MARK: - Yaradılma
 
@@ -124,19 +120,24 @@ final class FlightsContainerViewController: UIViewController {
 	// birbaşa qoşulmaq mümkün deyil, ona görə üstdəki ekranın növü izlənir:
 	// dəyişən kimi başlıq gizlənir, axtarış ekranına qayıdanda geri gəlir.
 
+	/// Hər kadrda yoxlanılır. Adi taymer (0.25 san) gec qalırdı: SDK yeni
+	/// ekranı biz sürüşdürməni ləğv etməmişdən əvvəl yerləşdirir və
+	/// yerləşdirmə yadda qalırdı.
 	private func startWatching() {
 		stopWatching()
-		watchTimer = Timer.scheduledTimer(
-			withTimeInterval: Layout.watchInterval,
-			repeats: true
-		) { [weak self] _ in
-			self?.updateHeaderVisibility()
-		}
+		let link = CADisplayLink(target: self, selector: #selector(watchTick))
+		link.add(to: .main, forMode: .common)
+		screenWatcher = link
 	}
 
 	private func stopWatching() {
-		watchTimer?.invalidate()
-		watchTimer = nil
+		screenWatcher?.invalidate()
+		screenWatcher = nil
+	}
+
+	@objc
+	private func watchTick() {
+		updateHeaderVisibility()
 	}
 
 	/// Ekranların yığınında ən üstdəkinin növünü qaytarır.
@@ -181,6 +182,11 @@ final class FlightsContainerViewController: UIViewController {
 
 		headerView.isHidden = !shouldShow
 		applyContentShift()
+
+		// Ölçü dəyişdiyi üçün SDK-ya yenidən yerləşdirmə tapşırılır —
+		// əks halda o, əvvəlki hündürlüyə görə hesabladığı yerləri saxlayır.
+		contentViewController.view.setNeedsLayout()
+		contentViewController.view.layoutIfNeeded()
 	}
 
 	private func applyContentShift() {
