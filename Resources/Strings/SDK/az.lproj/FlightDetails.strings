@@ -8,7 +8,7 @@
 "flight_details_book_ticket" = "%@-ə bilet al";
 "flight_details_in_flight_duration_format" = "%@ uçuşda";
 "flight_details_on_the_way_duration_format" = "Səfər müddəti: %@";
-"flight_details_tranzit_in_city_format" = "Tranzit %@";
+"flight_details_transfer_in_city_format" = "Tranzit %@";
 "flight_details_buy_luggage_later_msg_title" = "Baqajı sonra əlavə etmək olar";
 "flight_details_buy_luggage_later_msg_desc" = "Məsələn, bilet alarkən və ya uçuşa qeydiyyat zamanı";
 "flight_details_buy_luggage_later_msg_button" = "Anladım";
