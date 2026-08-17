@@ -13,6 +13,15 @@ final class AppDelegate: PluggableAppDelegate, ConfigurableAppDelegate {
 	var window: UIWindow?
 	var rootComponent: RootComponent?
 	var rootCoordinator: Coordinator?
+
+	// MARK: - Initialization
+
+	override init() {
+		// Dil interfeys qurulmamışdan əvvəl təyin olunmalıdır — sistem
+		// resurs paketini işə düşəndə bir dəfə seçir.
+		AppLanguage.applyDefaultOnFirstLaunch()
+		super.init()
+	}
 	
 	override var plugins: [AppDelegatePlugin] {
 		privatePlugins
