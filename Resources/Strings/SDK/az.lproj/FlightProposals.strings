@@ -5,6 +5,6 @@
 "flight_proposals_luggage_not_included" = "Baqaj daxil deyil";
 "flight_proposals_hand_luggage_not_included" = "Əl yükü daxil deyil";
 "flight_proposals_dimension_centimetre_format" = "%dsm";
-"flight_proposals_purchase_button_format" = "%1$s-ə al";
+"flight_proposals_purchase_button_format" = "%@-ə al";
 "flight_proposals_flight_there" = "Gediş";
 "flight_proposals_flight_back" = "Qayıdış";

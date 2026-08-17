@@ -4,7 +4,7 @@
 "widget_title_cell_title" = "Birbaşa uçuşlar";
 "widget_button_cell_show_all_title" = "Hamısını göstər";
 "widget_button_cell_collapse_title" = "Yığcam göstər";
-"ticket_cell_travel_time_title" = "Səfər müddəti";
+"ticket_cell_travel_time_title" = "Səfər müddəti: %@";
 "ticket_cell_few_tickets_left_warning_title" = "%@ bu qiymətə";
 "load_more_button_cell_title" = "Daha %@ bilet göstər";
 "footer_text_cell_title" = "Axtarış parametrlərinizə uyğun bütün biletlərə baxdınız.\nYeni nəticələr üçün filtrləri dəyişin";

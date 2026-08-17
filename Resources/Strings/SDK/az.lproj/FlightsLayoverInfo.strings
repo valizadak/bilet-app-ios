@@ -1,4 +1,4 @@
-"flights_layover_info_visa_title" = "vizalı transfer";
+"flights_layover_info_visa_title" = "vizalı tranzit %@";
 "flights_layover_info_visa_description" = "Bəzi hava limanlarında tranzit zonası yoxdur. Bu o deməkdir ki, gözləmə zamanı ölkəyə daxil olmalı olacaqsınız və viza tələb olunacaq.";
 "flights_layover_info_separate_booking_title" = "ayrı biletlər";
 "flights_layover_info_separate_booking_description" = "Bu, bir bilet deyil — bir bronda birləşdirilmiş bir neçə ayrı biletdir. Adətən adi bronlardan ucuz olur, amma nəzərə almalı olduğunuz məqamlar var:";
@@ -8,11 +8,11 @@
 "flights_layover_info_separate_booking_nuance_3" = "Birinci uçuş gecikdiyi üçün növbətisinə gecikirsinizsə, aviaşirkət xərclərinizi ödəməyəcək";
 "flights_layover_info_separate_booking_nuance_4" = "Geri qaytarma və dəyişdirmə şərtləri hər bilet üçün fərqli ola bilər";
 "flights_layover_info_separate_booking_epilogue" = "Təcrübəli səyahətçi deyilsinizsə, belə biletlərdən çəkinmək daha yaxşıdır";
-"flights_layover_info_short_title" = "qısa transfer";
+"flights_layover_info_short_title" = "qısa tranzit %@";
 "flights_layover_info_short_description" = "Cəmi %@ — tələsməli olacaqsınız:";
 "flights_layover_info_short_nuance_0" = "Baqajınız vaxtında çatdırılmaya və sonrakı reyslə gələ bilər";
 "flights_layover_info_short_nuance_1" = "Əvvəlki uçuş gecikərsə, növbətiyə çatmaya bilərsiniz";
-"flights_layover_info_night_title" = "gecə transferi";
+"flights_layover_info_night_title" = "gecə tranziti %@";
 "flights_layover_info_night_description" = "Otelə pul xərcləməli, ya da hava limanında gecələməli olacaqsınız. Nəzərə alın ki, bəzi hava limanları gecə bağlanır.";
 "flights_layover_info_airport_change_title" = "Hava limanı dəyişikliyi ilə gözləmə\n%@";
 "flights_layover_info_airport_change_description" = "Çətin deyil, amma nəzərə almalı olduğunuz məqamlar var:";
