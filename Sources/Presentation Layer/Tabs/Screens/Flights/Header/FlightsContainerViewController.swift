@@ -15,8 +15,9 @@ final class FlightsContainerViewController: UIViewController {
 
 	private enum Layout {
 		/// SDK məzmununun yuxarı sürüşmə payı — başlıq onun boş sahəsini örtsün deyə.
-		/// Android-dəki CONTENT_SHIFT = 0.14f ilə eynidir.
-		static let contentShift: CGFloat = 0.14
+		/// iPhone ekranı Android-dəkindən uzun olduğu üçün pay da böyükdür:
+		/// 0.14 qoyanda başlıqla axtarış qutusu arasında artıq boşluq qalırdı.
+		static let contentShift: CGFloat = 0.21
 		/// Ekranın dəyişdiyini yoxlama tezliyi
 		static let watchInterval: TimeInterval = 0.25
 	}

@@ -25,7 +25,9 @@ final class BiletHeaderView: UIView {
 		static let logoHeight: CGFloat = 32
 		/// Loqo faylının öz nisbəti: 480 × 109
 		static let logoAspectRatio: CGFloat = 480.0 / 109.0
-		static let logoTop: CGFloat = 6
+		/// Yuxarıdan boşluq — Android-dəki kimi başlıq bir qədər aşağıda durur,
+		/// belə daha səliqəli görünür.
+		static let logoTop: CGFloat = 20
 		/// Android-də loqo ilə menyu arasındakı məsafə 18dp idi
 		static let menuTop: CGFloat = 18
 		static let menuHeight: CGFloat = 24
@@ -124,8 +126,10 @@ final class BiletHeaderView: UIView {
 				multiplier: Layout.logoAspectRatio
 			),
 
+			// Sağ kənardan məsafə loqonun sol kənardan məsafəsi ilə eynidir,
+			// alt xətti də loqonun alt xətti ilə üst-üstə düşür — Android-dəki kimi.
 			languageButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Layout.sideInset),
-			languageButton.centerYAnchor.constraint(equalTo: logoImageView.centerYAnchor),
+			languageButton.bottomAnchor.constraint(equalTo: logoImageView.bottomAnchor),
 			languageButton.heightAnchor.constraint(equalToConstant: Layout.languageHeight),
 
 			scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
