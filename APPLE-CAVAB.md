@@ -20,7 +20,10 @@ Sonra ekranın yuxarı sağ küncündən aşağı çək → yazı düyməsinə b
 **Videoda mütləq göstər (60-90 saniyə):**
 
 1. Tətbiqi ana ekrandan aç — açılış animasiyası görünsün
-2. **Məkan icazəsi pəncərəsi** çıxanda göstər (Apple xüsusi olaraq bunu istəyib)
+2. **Bildiriş icazəsi pəncərəsi** çıxanda göstər ("Bilet.az Would Like to Send
+   You Notifications"). Tətbiqin istədiyi yeganə icazə budur — Apple məhz
+   belə pəncərələri görmək istəyir. Çıxmasa (əvvəl cavab verilibsə), tətbiqi
+   silib yenidən yüklə.
 3. Gediş şəhəri seç → Bakı
 4. Gəliş şəhəri seç → İstanbul
 5. Tarix seç
@@ -48,13 +51,18 @@ Thank you for reviewing Bilet.az. Please find the requested information below.
 
 A screen recording captured on a physical iPhone running the latest iOS is
 attached. It begins with launching the app and shows the complete user flow:
-the location permission prompt, selecting origin and destination airports,
-choosing dates, running a search, browsing results, applying filters, viewing
-the price chart, opening ticket details, and proceeding to the partner website
-to complete a booking. It also shows the Contact and Information tabs.
+the push notification permission prompt, selecting origin and destination
+airports, choosing dates, running a search, browsing results, applying filters,
+viewing the price chart, opening ticket details, and proceeding to the partner
+website to complete a booking. It also shows the Contact and Information tabs.
 
 The app has no account registration, login, or account deletion flows, no
 in-app purchases or subscriptions, and no user-generated content.
+
+The only permission the app requests is push notifications, which is shown in
+the recording. The app does not request location, contacts, camera, microphone,
+photo library access, or App Tracking Transparency. The departure city shown by
+default is determined server-side from the IP address, not from device location.
 
 2. DEVICES AND OPERATING SYSTEMS TESTED
 
@@ -96,8 +104,8 @@ To use the main feature:
   7. Selecting a ticket opens the partner website where the booking is
      completed.
 
-The app requests location access only to suggest the nearest airport. The app
-is fully usable if the user declines this permission.
+The app is fully usable without granting any permission. Declining the push
+notification prompt does not limit any feature.
 
 5. EXTERNAL SERVICES USED
 
