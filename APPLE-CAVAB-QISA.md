@@ -68,10 +68,8 @@ authentication services, payment processors or AI services in the app.
 6. REGIONAL DIFFERENCES
 The app works identically in all regions and has no region-locked features or
 content. The default language is Azerbaijani and the default currency is AZN
-because the app is built for the Azerbaijani market. Users can change the
-language in iOS Settings (Preferred Language) and the currency in the app under
-Information > Regional settings. Results depend only on the route and dates
-entered by the user.
+because the app is built for the Azerbaijani market; both can be changed by the
+user. Results depend only on the route and dates entered.
 
 7. AUTHORIZATION FOR THIRD-PARTY MATERIAL
 All flight data, airline names and logos shown in the app are provided by
