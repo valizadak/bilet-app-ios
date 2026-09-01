@@ -2,23 +2,56 @@
 //  AppLanguage.swift
 //  Bilet.az
 //
-//  Tətbiqin hazırkı dili.
+//  Tətbiqin dili.
 //
-//  Dil iOS-un öz "Preferred Language" mexanizmi ilə idarə olunur: istifadəçi
-//  onu telefonun ayarlarında, tətbiqin öz səhifəsində dəyişir. Sistem
-//  dəyişikliyi tətbiq edib tətbiqi özü yenidən açır — bizim tərəfdən
-//  yaddaşa yazmağa və ya prosesi yenidən başlatmağa ehtiyac yoxdur.
+//  Müştərilərimiz Azərbaycandandır, ona görə tətbiq ilk dəfə açılanda
+//  azərbaycan dilində açılmalıdır — telefonun dili nə olursa olsun.
+//  Sonradan istifadəçi telefonun ayarlarından ("Preferred Language")
+//  başqa dil seçsə, seçimi qorunur, biz bir daha müdaxilə etmirik.
 //
-//  Bu bölmə iOS-da yalnız bir neçə dil resursu olan tətbiqlərdə görünür;
-//  bizdə 29 dil var, ona görə həmişə mövcuddur.
+//  DİQQƏT — burada incə bir məqam var:
+//
+//  `AppleLanguages` açarını yazmaq tək başına kifayət etmir. Sistem resurs
+//  paketini proses işə düşəndə bir dəfə seçir, bizim yazımız isə ondan sonra
+//  baş verir. Nəticədə ilk açılışda sabit mətnlər cihazın dilində, bizim
+//  konfiqurasiyadan gələnlər isə azərbaycanca olurdu — interfeys qarışıq
+//  görünürdü. App Store yoxlaması məhz buna görə rədd cavabı verdi
+//  (Guideline 4 — Design, "mixed languages").
+//
+//  Ona görə ilk açılışda resurs paketi də dəyişdirilir: `Bundle.main`
+//  azərbaycan paketinə yönləndirilir və bütün mətnlər eyni dildə olur.
 //
 
 import Foundation
+import ObjectiveC
+
+// MARK: - Dili məcbur edən resurs paketi
+
+/// `Bundle.main` üçün əvəzedici: mətnləri seçilmiş dilin paketindən qaytarır.
+private final class ForcedLanguageBundle: Bundle, @unchecked Sendable {
+
+	/// Hansı dilin paketindən oxunacağı. Nil olsa, adi davranış işləyir.
+	static var languageBundle: Bundle?
+
+	override func localizedString(
+		forKey key: String,
+		value: String?,
+		table tableName: String?
+	) -> String {
+		guard let bundle = Self.languageBundle else {
+			return super.localizedString(forKey: key, value: value, table: tableName)
+		}
+		return bundle.localizedString(forKey: key, value: value, table: tableName)
+	}
+}
 
 enum AppLanguage {
 
 	private static let fallback = "az"
 	private static let known = ["az", "en", "ru", "tr"]
+
+	private static let languagesKey = "AppleLanguages"
+	private static let defaultAppliedKey = "bilet_default_language_applied"
 
 	/// Sistemin tətbiq üçün seçdiyi dilin iki hərfli kodu.
 	static var current: String {
@@ -34,20 +67,8 @@ enum AppLanguage {
 		current.uppercased()
 	}
 
-	// MARK: - İlk açılışda dilin təyini
-
-	private static let languagesKey = "AppleLanguages"
-	private static let defaultAppliedKey = "bilet_default_language_applied"
-
 	/// Tətbiq ilk dəfə açılanda dili azərbaycancaya çevirir.
-	///
-	/// Müştərilərimiz Azərbaycandandır, ona görə telefonun dili rus və ya
-	/// ingilis olsa belə tətbiq azərbaycanca açılmalıdır.
-	///
-	/// Yalnız bir dəfə edilir: sonradan istifadəçi telefonun ayarlarından
-	/// başqa dil seçsə, seçimi pozulmasın deyə bir daha müdaxilə olunmur.
-	///
-	/// Mümkün qədər erkən — interfeys qurulmamışdan əvvəl çağırılmalıdır.
+	/// İnterfeys qurulmamışdan əvvəl — `AppDelegate.init()`-də çağırılır.
 	static func applyDefaultOnFirstLaunch() {
 		let defaults = UserDefaults.standard
 
@@ -56,11 +77,24 @@ enum AppLanguage {
 		}
 		defaults.set(true, forKey: defaultAppliedKey)
 
+		// Sonrakı açılışlar üçün: sistem özü azərbaycan paketini seçəcək.
 		var order = defaults.stringArray(forKey: languagesKey) ?? Locale.preferredLanguages
 		order.removeAll { $0.lowercased().hasPrefix(fallback) }
 		order.insert(fallback, at: 0)
-
 		defaults.set(order, forKey: languagesKey)
 		defaults.synchronize()
+
+		// Bu açılış üçün: resurs paketi dərhal dəyişdirilir ki, sabit
+		// mətnlər də azərbaycanca olsun və dil qarışığı yaranmasın.
+		forceBundle(to: fallback)
+	}
+
+	private static func forceBundle(to code: String) {
+		guard let path = Bundle.main.path(forResource: code, ofType: "lproj"),
+			  let bundle = Bundle(path: path) else {
+			return
+		}
+		ForcedLanguageBundle.languageBundle = bundle
+		object_setClass(Bundle.main, ForcedLanguageBundle.self)
 	}
 }

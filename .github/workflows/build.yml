@@ -98,8 +98,14 @@ jobs:
           # desteklenmeye biler, ona gore sehv gozardi edilir).
           xcrun simctl privacy "$UDID" grant all "$BUNDLE" 2>/dev/null || true
 
+          echo "=== tetbiqdeki dil paketleri ==="
+          ls -d "$APP"/*.lproj 2>/dev/null | xargs -n1 basename | tr '\n' ' '
+          echo ""
+
           mkdir -p ekranlar
-          xcrun simctl launch "$UDID" "$BUNDLE" -AppleLanguages "(az)" -AppleLocale az_AZ || true
+          # Cihaz dili INGILIS secilir — App Store yoxlayicisinin veziyyeti.
+          # Tetbiq buna baxmayaraq tam azerbaycanca acilmalidir.
+          xcrun simctl launch "$UDID" "$BUNDLE" -AppleLanguages "(en)" -AppleLocale en_US || true
 
           # Tetbiq acilib melumat yuklediyi ucun bir nece anda cekirik
           for t in 8 16 26 40; do
