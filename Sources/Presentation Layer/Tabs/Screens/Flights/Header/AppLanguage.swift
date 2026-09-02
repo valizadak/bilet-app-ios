@@ -2,56 +2,39 @@
 //  AppLanguage.swift
 //  Bilet.az
 //
-//  Tətbiqin dili.
+//  Tətbiqin hazırkı dili.
 //
-//  Müştərilərimiz Azərbaycandandır, ona görə tətbiq ilk dəfə açılanda
-//  azərbaycan dilində açılmalıdır — telefonun dili nə olursa olsun.
-//  Sonradan istifadəçi telefonun ayarlarından ("Preferred Language")
-//  başqa dil seçsə, seçimi qorunur, biz bir daha müdaxilə etmirik.
+//  Dil tamamilə iOS-un öz mexanizmi ilə idarə olunur: sistem cihazın dilinə
+//  uyğun resurs paketini seçir, istifadəçi isə onu telefonun ayarlarında,
+//  tətbiqin öz səhifəsində ("Preferred Language") dəyişə bilir.
 //
-//  DİQQƏT — burada incə bir məqam var:
+//  ⚠️ DİLİ KODDAN MƏCBUR ETMƏK OLMAZ — iki dəfə sınandı, hər dəfə interfeys
+//  qarışıq dildə göründü və App Store rədd cavabı verdi (Guideline 4 —
+//  "mixed languages"):
 //
-//  `AppleLanguages` açarını yazmaq tək başına kifayət etmir. Sistem resurs
-//  paketini proses işə düşəndə bir dəfə seçir, bizim yazımız isə ondan sonra
-//  baş verir. Nəticədə ilk açılışda sabit mətnlər cihazın dilində, bizim
-//  konfiqurasiyadan gələnlər isə azərbaycanca olurdu — interfeys qarışıq
-//  görünürdü. App Store yoxlaması məhz buna görə rədd cavabı verdi
-//  (Guideline 4 — Design, "mixed languages").
+//    1-ci cəhd: `AppleLanguages` açarı yazıldı. Resurs paketi proses işə
+//       düşəndə artıq seçilmiş olduğu üçün sabit mətnlər cihazın dilində
+//       qaldı, konfiqurasiyadan gələnlər (tab adı, əlaqə linki) isə
+//       azərbaycanca oldu.
 //
-//  Ona görə ilk açılışda resurs paketi də dəyişdirilir: `Bundle.main`
-//  azərbaycan paketinə yönləndirilir və bütün mətnlər eyni dildə olur.
+//    2-ci cəhd: üstəlik `Bundle.main` azərbaycan paketinə yönləndirildi.
+//       Bu dəfə sabit mətnlər azərbaycanca oldu, amma SDK və bizim menyu
+//       `Locale`-a baxdığı üçün ingiliscə qaldı — qarışıq tərsinə döndü.
+//
+//  Səbəb: `Locale.preferredLanguages` prosesin əvvəlində təyin olunur və
+//  sonradan dəyişdirilə bilmir. Yəni tətbiqin bir hissəsi həmişə cihazın
+//  dilində qalır. Yeganə etibarlı həll — heç nəyi məcbur etməmək.
+//
+//  Nəticədə: cihaz azərbaycancadırsa tətbiq azərbaycanca, rusdursa rusca
+//  açılır. Hər halda vahid dildə olur, qarışıq mümkün deyil.
 //
 
 import Foundation
-import ObjectiveC
-
-// MARK: - Dili məcbur edən resurs paketi
-
-/// `Bundle.main` üçün əvəzedici: mətnləri seçilmiş dilin paketindən qaytarır.
-private final class ForcedLanguageBundle: Bundle, @unchecked Sendable {
-
-	/// Hansı dilin paketindən oxunacağı. Nil olsa, adi davranış işləyir.
-	static var languageBundle: Bundle?
-
-	override func localizedString(
-		forKey key: String,
-		value: String?,
-		table tableName: String?
-	) -> String {
-		guard let bundle = Self.languageBundle else {
-			return super.localizedString(forKey: key, value: value, table: tableName)
-		}
-		return bundle.localizedString(forKey: key, value: value, table: tableName)
-	}
-}
 
 enum AppLanguage {
 
 	private static let fallback = "az"
 	private static let known = ["az", "en", "ru", "tr"]
-
-	private static let languagesKey = "AppleLanguages"
-	private static let defaultAppliedKey = "bilet_default_language_applied"
 
 	/// Sistemin tətbiq üçün seçdiyi dilin iki hərfli kodu.
 	static var current: String {
@@ -65,36 +48,5 @@ enum AppLanguage {
 	/// Başlıqdakı düymədə göstərilən qısa ad: AZ, EN, RU, TR
 	static var currentShortTitle: String {
 		current.uppercased()
-	}
-
-	/// Tətbiq ilk dəfə açılanda dili azərbaycancaya çevirir.
-	/// İnterfeys qurulmamışdan əvvəl — `AppDelegate.init()`-də çağırılır.
-	static func applyDefaultOnFirstLaunch() {
-		let defaults = UserDefaults.standard
-
-		guard !defaults.bool(forKey: defaultAppliedKey) else {
-			return
-		}
-		defaults.set(true, forKey: defaultAppliedKey)
-
-		// Sonrakı açılışlar üçün: sistem özü azərbaycan paketini seçəcək.
-		var order = defaults.stringArray(forKey: languagesKey) ?? Locale.preferredLanguages
-		order.removeAll { $0.lowercased().hasPrefix(fallback) }
-		order.insert(fallback, at: 0)
-		defaults.set(order, forKey: languagesKey)
-		defaults.synchronize()
-
-		// Bu açılış üçün: resurs paketi dərhal dəyişdirilir ki, sabit
-		// mətnlər də azərbaycanca olsun və dil qarışığı yaranmasın.
-		forceBundle(to: fallback)
-	}
-
-	private static func forceBundle(to code: String) {
-		guard let path = Bundle.main.path(forResource: code, ofType: "lproj"),
-			  let bundle = Bundle(path: path) else {
-			return
-		}
-		ForcedLanguageBundle.languageBundle = bundle
-		object_setClass(Bundle.main, ForcedLanguageBundle.self)
 	}
 }
