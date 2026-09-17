@@ -116,6 +116,36 @@ jobs:
 
           ls -la ekranlar
 
+      # Apple tetbiqi iPad Pro 11-inch (M4) uzerinde yoxlayib. iPad ekraninin
+      # nisbeti telefondan xeyli kvadratdir, ona gore fon sekli basqa yerden
+      # kesilir. Guman etmek evezine olcuruk.
+      - name: iPad-de ekran sekilleri
+        continue-on-error: true
+        run: |
+          set -e
+          APP=$(find build/Build/Products -maxdepth 3 -name "*.app" | head -1)
+          BUNDLE=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$APP/Info.plist")
+
+          DEVTYPE=$(xcrun simctl list devicetypes -j | jq -r '.devicetypes[].identifier'             | grep -E "iPad-Pro-11|iPad-Pro.*11" | tail -1)
+          [ -z "$DEVTYPE" ] && DEVTYPE=$(xcrun simctl list devicetypes -j | jq -r '.devicetypes[].identifier' | grep iPad | tail -1)
+          RUNTIME=$(xcrun simctl list runtimes -j | jq -r '.runtimes[] | select(.isAvailable) | .identifier' | grep iOS | tail -1)
+          echo "cihaz: $DEVTYPE / $RUNTIME"
+
+          UDID=$(xcrun simctl create bilet-ipad "$DEVTYPE" "$RUNTIME")
+          xcrun simctl boot "$UDID"
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl install "$UDID" "$APP"
+          xcrun simctl privacy "$UDID" grant all "$BUNDLE" 2>/dev/null || true
+
+          mkdir -p ekranlar
+          xcrun simctl launch "$UDID" "$BUNDLE" -AppleLanguages "(en)" -AppleLocale en_US || true
+          for t in 16 30; do
+            sleep 15
+            xcrun simctl io "$UDID" screenshot "ekranlar/ipad-${t}san.png" || true
+            echo "cekildi: iPad ${t} saniye"
+          done
+          ls -la ekranlar
+
       - name: Ekran sekillerini saxlayir
         if: always()
         uses: actions/upload-artifact@v4
