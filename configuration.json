@@ -8,7 +8,7 @@
                 "id": "az.bilet.app",
                 "team_id": "XPGCUTJUV7",
                 "version": "1.0.0",
-                "build_number": 1
+                "build_number": 11
             }
         },
         "display_name": {
@@ -54,7 +54,12 @@
         "palette": "lab"
     },
     "info_screen_config": {
-        "items_to_display": ["favorites", "about_app", "rate_app", "share_app"],
+        "items_to_display": [
+            "favorites",
+            "about_app",
+            "rate_app",
+            "share_app"
+        ],
         "about_app_info": {
             "description": {
                 "base": "en",
@@ -87,6 +92,30 @@
         "screens_to_display": [
             {
                 "type": "flights"
+            },
+            {
+                "type": "other",
+                "parameters": {
+                    "icon": "ic_other_2",
+                    "title": {
+                        "base": "en",
+                        "localized": {
+                            "az": "Xidmətlər",
+                            "en": "Services",
+                            "ru": "Услуги",
+                            "tr": "Hizmetler"
+                        }
+                    },
+                    "url": {
+                        "base": "en",
+                        "localized": {
+                            "az": "https://granitas.az/xidmetler/",
+                            "en": "https://granitas.az/xidmetler/",
+                            "ru": "https://granitas.az/xidmetler/",
+                            "tr": "https://granitas.az/xidmetler/"
+                        }
+                    }
+                }
             },
             {
                 "type": "other",
